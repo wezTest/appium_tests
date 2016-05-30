@@ -1,9 +1,17 @@
+package Tests;
+
+import PageLogic.LandingPage;
+import PageLogic.SignUpPage;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
-import org.junit.Before;
+import PageLocators.locators;
+import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.BeforeTest;
+import Utils.utils;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -14,10 +22,10 @@ import java.net.URL;
  */
 public class appiumTests {
 
-    AndroidDriver driver;
+    static AndroidDriver driver;
     DesiredCapabilities cap;
 
-    @Before
+    @BeforeTest
     public void beforeCapabilities() throws MalformedURLException {
         //set app location
         File appDir = new File("Apps");
@@ -36,12 +44,24 @@ public class appiumTests {
 
     @Test
     public void firstTest() {
-        utils.clickElement(locators.btnlogin(),driver);
-        utils.clickElement(locators.btnSignUp(),driver);
 
-        utils.sendKeys(locators.txtFirstName(),driver,"Wesley");
-        utils.sendKeys(locators.txtLastName(),driver,"Smyth");
-        utils.sendKeys(locators.txtEmail(),driver,"test@test.com");
+        LandingPage test1 = new LandingPage(driver);
+        boolean completion = test1.clickLogin().clickSignUp().completeSignUp("","","","");
+        Assert.assertTrue(completion);
+
+
+        utils.clickElement(locators.btnlogin());
+        utils.clickElement(locators.btnSignUp());
+
+        int size = driver.findElements(By.className("android.widget.EditText")).size();
+        System.out.println(size);
+
+       /* Utils.Utils.sendKeys(PageLocators.PageLocators.txtFirstName(),driver,"Wesley");
+        Utils.Utils.sendKeys(PageLocators.PageLocators.txtLastName(),driver,"Smyth");
+        Utils.Utils.sendKeys(PageLocators.PageLocators.txtEmail(),driver,"test@test.com");*/
+
+       SignUpPage page = new SignUpPage(driver).populateFirstName("Wesley").populateLastName("Smyth");
+
 
     }
 }

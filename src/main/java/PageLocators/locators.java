@@ -1,3 +1,5 @@
+package PageLocators;
+
 import org.openqa.selenium.By;
 
 /**
