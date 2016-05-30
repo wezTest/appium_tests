@@ -3,10 +3,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -15,13 +12,13 @@ import java.net.URL;
 /**
  * Created by wesley.smyth on 26/05/2016.
  */
-public class desiredcapab{
+public class appiumTests {
 
     AndroidDriver driver;
     DesiredCapabilities cap;
 
     @Before
-    public void beforeCapabilities() throws MalformedURLException{
+    public void beforeCapabilities() throws MalformedURLException {
         //set app location
         File appDir = new File("Apps");
         File app = new File(appDir, "com.bt.bms.apk");
@@ -35,25 +32,16 @@ public class desiredcapab{
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), cap);
         driver.unlockDevice();
-        //changes
     }
 
     @Test
-    public void clickLoginBtn() {
-        //initialize emulator
-        waitForVisibilityOf(locators.btnlogin());
-        driver.findElement(locators.btnlogin()).click();
+    public void firstTest() {
+        utils.clickElement(locators.btnlogin(),driver);
+        utils.clickElement(locators.btnSignUp(),driver);
+
+        utils.sendKeys(locators.txtFirstName(),driver,"Wesley");
+        utils.sendKeys(locators.txtLastName(),driver,"Smyth");
+        utils.sendKeys(locators.txtEmail(),driver,"test@test.com");
+
     }
-
-
-    protected void waitForVisibilityOf(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    protected void waitForClickabilityOf(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
-
 }
