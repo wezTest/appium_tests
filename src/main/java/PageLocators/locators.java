@@ -26,4 +26,8 @@ public class locators {
     public static By txtEmail() {
         return By.id("com.bt.bms:id/edtEmailId");
     }
+
+    public static By txtPassword() {
+        return By.id("com.bt.bms:id/edtPassword");
+    }
 }

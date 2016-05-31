@@ -5,13 +5,9 @@ import PageLogic.SignUpPage;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
-import PageLocators.locators;
 import org.junit.Assert;
-import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeTest;
-import Utils.utils;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -42,25 +38,25 @@ public class appiumTests {
         driver.unlockDevice();
     }
 
-    @Test
+   @org.testng.annotations.Test
     public void firstTest() {
-
         LandingPage test1 = new LandingPage(driver);
-        boolean completion = test1.clickLogin().clickSignUp().completeSignUp("","","","");
+        boolean completion = test1.clickLogin().clickSignUp().completeSignUp("test", "test", "test", "test");
         Assert.assertTrue(completion);
 
+       test1.clickLogin().clickSignUp().populateFirstName("gersy");
 
-        utils.clickElement(locators.btnlogin());
-        utils.clickElement(locators.btnSignUp());
 
-        int size = driver.findElements(By.className("android.widget.EditText")).size();
-        System.out.println(size);
+        //utils.clickElement(driver, locators.btnlogin());
+        //utils.clickElement(driver, locators.btnSignUp());
+        //int size = driver.findElements(By.className("android.widget.EditText")).size();
+        // System.out.println(size);
 
        /* Utils.Utils.sendKeys(PageLocators.PageLocators.txtFirstName(),driver,"Wesley");
         Utils.Utils.sendKeys(PageLocators.PageLocators.txtLastName(),driver,"Smyth");
         Utils.Utils.sendKeys(PageLocators.PageLocators.txtEmail(),driver,"test@test.com");*/
 
-       SignUpPage page = new SignUpPage(driver).populateFirstName("Wesley").populateLastName("Smyth");
+        //SignUpPage page = new SignUpPage(driver).populateFirstName("Wesley").populateLastName("Smyth");
 
 
     }

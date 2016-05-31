@@ -3,6 +3,7 @@ package PageLogic;
 
 import PageLocators.locators;
 import org.openqa.selenium.WebDriver;
+
 import static Utils.utils.*;
 
 /**
@@ -16,29 +17,27 @@ public class SignUpPage extends BasePage {
     }
 
     public SignUpPage populateFirstName(String text) {
-        sendKeys(locators.txtFirstName(),text);
+        sendKeys(driver, locators.txtFirstName(), text);
         return this;
     }
 
     public SignUpPage populateLastName(String text) {
-        sendKeys(locators.txtLastName(),text);
+        sendKeys(driver, locators.txtLastName(), text);
         return this;
     }
 
     public SignUpPage populateEmail(String text) {
-        sendKeys(locators.txtEmail(),text);
+        sendKeys(driver, locators.txtEmail(), text);
+        return this;
+    }
+
+    public SignUpPage populatePassword(String text) {
+        sendKeys(driver, locators.txtPassword(), text);
         return this;
     }
 
     public boolean completeSignUp(String firstName, String lastName, String email, String password) {
-        populateFirstName(firstName).populateLastName(lastName).populateEmail(email);
+        populateFirstName(firstName).populateLastName(lastName).populateEmail(email).populatePassword(password);
         return true;
     }
-
-//    public HomePage loginSuccessfully() {
-//        populateFirstName().populateLastName() return new HomePage(driver)
-//    }
-//
-//    public boolean verifyAll
-
 }
