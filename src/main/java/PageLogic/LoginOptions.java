@@ -1,6 +1,5 @@
 package PageLogic;
 
-import PageLocators.locators;
 import org.openqa.selenium.WebDriver;
 
 import static Utils.utils.clickElement;
@@ -15,7 +14,7 @@ public class LoginOptions extends BasePage {
     }
 
     public SignUpPage clickSignUp() {
-        clickElement(driver, locators.btnSignUp());
+        clickElement(driver, PageLocators.LoginOptions.btnSignUp());
         return new SignUpPage(driver);
     }
 

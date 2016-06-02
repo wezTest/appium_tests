@@ -1,17 +1,21 @@
 package Tests;
 
+import PageLocators.LoginOptions;
 import PageLogic.LandingPage;
-import PageLogic.SignUpPage;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 /**
  * Created by wesley.smyth on 26/05/2016.
@@ -38,26 +42,28 @@ public class appiumTests {
         driver.unlockDevice();
     }
 
-   @org.testng.annotations.Test
+    @org.testng.annotations.Test
     public void firstTest() {
         LandingPage test1 = new LandingPage(driver);
         boolean completion = test1.clickLogin().clickSignUp().completeSignUp("test", "test", "test", "test");
         Assert.assertTrue(completion);
+    }
 
-       test1.clickLogin().clickSignUp().populateFirstName("gersy");
 
+    @Test
+    public void altTest() {
+        Utils.utils.clickElement(driver, PageLocators.LandingPage.btnlogin());
+        Utils.utils.clickElement(driver, LoginOptions.btnSignUp());
 
-        //utils.clickElement(driver, locators.btnlogin());
-        //utils.clickElement(driver, locators.btnSignUp());
-        //int size = driver.findElements(By.className("android.widget.EditText")).size();
-        // System.out.println(size);
+        int size = driver.findElements(By.className("android.widget.EditText")).size();
+        System.out.println(size);
+        List<WebElement> textFields = driver.findElements(By.className("android.widget.EditText"));
+        textFields.get(0).sendKeys("appium");
+        textFields.get(1).sendKeys("Mobile");
+        textFields.get(2).sendKeys("appium@training.com");
+        textFields.get(3).sendKeys("password");
 
-       /* Utils.Utils.sendKeys(PageLocators.PageLocators.txtFirstName(),driver,"Wesley");
-        Utils.Utils.sendKeys(PageLocators.PageLocators.txtLastName(),driver,"Smyth");
-        Utils.Utils.sendKeys(PageLocators.PageLocators.txtEmail(),driver,"test@test.com");*/
-
-        //SignUpPage page = new SignUpPage(driver).populateFirstName("Wesley").populateLastName("Smyth");
-
+        Utils.utils.clickElement(driver, PageLocators.SignUpPage.btnConfirm());
 
     }
 }

@@ -15,7 +15,7 @@ public class LandingPage extends BasePage {
     }
 
     public LoginOptions clickLogin() {
-        clickElement(driver, PageLocators.locators.btnlogin());
+        clickElement(driver, PageLocators.LandingPage.btnlogin());
         return new LoginOptions(driver);
     }
 }
