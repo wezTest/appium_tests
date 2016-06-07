@@ -65,7 +65,7 @@ public class appiumTests {
     public void gesturesTest() {
         LandingPage test1 = new LandingPage(driver);
         boolean dismiss = test1.clickSkip().confirmDismissPopup();
-        org.testng.Assert.assertEquals(dismiss, true);
+        Assert.assertEquals(dismiss, true);
     }
 
     //appium style tests
