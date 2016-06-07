@@ -18,4 +18,9 @@ public class LandingPage extends BasePage {
         clickElement(driver, PageLocators.LandingPage.btnlogin());
         return new LoginOptions(driver);
     }
+
+    public PickRegion clickSkip() {
+        clickElement(driver, PageLocators.LandingPage.btnSkip());
+        return new PickRegion(driver);
+    }
 }

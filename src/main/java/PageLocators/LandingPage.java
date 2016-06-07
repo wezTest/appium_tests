@@ -10,4 +10,8 @@ public class LandingPage {
     public static By btnlogin() {
             return By.id("com.bt.bms:id/btnLogin");
         }
+
+    public static By btnSkip() {
+        return By.id("com.bt.bms:id/btnNoThanks");
+    }
 }
