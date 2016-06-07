@@ -1,5 +1,6 @@
 package Tests;
 
+import Common.enumExample;
 import PageLocators.LoginOptions;
 import PageLogic.LandingPage;
 import io.appium.java_client.android.AndroidDriver;
@@ -17,6 +18,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import static Common.enumExample.MONDAY;
+
 /**
  * Created by wesley.smyth on 26/05/2016.
  */
@@ -29,7 +32,8 @@ public class appiumTests {
     public void beforeCapabilities() throws MalformedURLException {
         //set app location
         File appDir = new File("Apps");
-        File app = new File(appDir, "com.bt.bms.apk");
+        //File app = new File(appDir, "com.bt.bms.apk");
+        File app = new File(appDir, "ApiDemos-debug.apk");
 
         //set emulator capabilities
         cap = new DesiredCapabilities();
@@ -42,6 +46,14 @@ public class appiumTests {
         driver.unlockDevice();
     }
 
+    //enum example
+    @Test
+    public void enumTest(){
+        enumExample dayName = MONDAY;
+        System.out.println(dayName.getDays());
+    }
+
+    //page journey tests
     @org.testng.annotations.Test
     public void firstTest() {
         LandingPage test1 = new LandingPage(driver);
@@ -49,9 +61,9 @@ public class appiumTests {
         Assert.assertTrue(completion);
     }
 
-
+    //appium style tests
     @Test
-    public void altTest() {
+    public void altSignUpTest() {
         Utils.utils.clickElement(driver, PageLocators.LandingPage.btnlogin());
         Utils.utils.clickElement(driver, LoginOptions.btnSignUp());
 
@@ -64,6 +76,14 @@ public class appiumTests {
         textFields.get(3).sendKeys("password");
 
         Utils.utils.clickElement(driver, PageLocators.SignUpPage.btnConfirm());
-
     }
+
+    @Test
+    public void apiTest() {
+        String text = "Preference";
+        Utils.utils.scrollAndClick(driver, text);
+        //driver.findElementsById()
+    }
+
+
 }
