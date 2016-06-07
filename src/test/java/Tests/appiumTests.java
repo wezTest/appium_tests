@@ -48,13 +48,13 @@ public class appiumTests {
 
     //enum example
     @Test
-    public void enumTest(){
+    public void enumTest() {
         enumExample dayName = MONDAY;
         System.out.println(dayName.getDays());
     }
 
     //page journey tests
-    @org.testng.annotations.Test
+    @Test
     public void firstTest() {
         LandingPage test1 = new LandingPage(driver);
         boolean completion = test1.clickLogin().clickSignUp().completeSignUp("test", "test", "test", "test");
@@ -78,11 +78,17 @@ public class appiumTests {
         Utils.utils.clickElement(driver, PageLocators.SignUpPage.btnConfirm());
     }
 
+    //test for using items that dont have unique IDs
     @Test
     public void apiTest() {
         String text = "Preference";
         Utils.utils.scrollAndClick(driver, text);
-        //driver.findElementsById()
+        List<WebElement> links = Utils.utils.listOfElements(driver, PageLocators.ApiPageLinks.APILinks());
+
+        for (int i = 0; i < links.size(); i++) {
+            System.out.println(links.get(i).getText());
+        }
+        System.out.println(links.get(8).getText());
     }
 
 
