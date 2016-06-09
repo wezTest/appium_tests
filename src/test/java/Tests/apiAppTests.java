@@ -1,12 +1,11 @@
 package Tests;
 
-import Common.enumExample;
-import PageLocators.LoginOptions;
-import PageLogic.LandingPage;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.SwipeElementDirection;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -18,12 +17,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import static Common.enumExample.MONDAY;
-
 /**
- * Created by wesley.smyth on 26/05/2016.
+ * Created by wesley.smyth on 08/06/2016.
  */
-public class appiumTests {
+public class apiAppTests {
 
     static AndroidDriver driver;
     DesiredCapabilities cap;
@@ -32,7 +29,6 @@ public class appiumTests {
     public void beforeCapabilities() throws MalformedURLException {
         //set app location
         File appDir = new File("Apps");
-        //File app = new File(appDir, "com.bt.bms.apk");
         File app = new File(appDir, "ApiDemos-debug.apk");
 
         //set emulator capabilities
@@ -46,45 +42,6 @@ public class appiumTests {
         driver.unlockDevice();
     }
 
-    //enum example
-    @Test
-    public void enumTest() {
-        enumExample dayName = MONDAY;
-        System.out.println(dayName.getDays());
-    }
-
-    //page journey tests
-    @Test
-    public void firstTest() {
-        LandingPage test1 = new LandingPage(driver);
-        boolean completion = test1.clickLogin().clickSignUp().completeSignUp("test", "test", "test", "test");
-        Assert.assertTrue(completion);
-    }
-
-    @Test
-    public void gesturesTest() {
-        LandingPage test1 = new LandingPage(driver);
-        boolean dismiss = test1.clickSkip().confirmDismissPopup();
-        Assert.assertEquals(dismiss, true);
-    }
-
-    //appium style tests
-    @Test
-    public void altSignUpTest() {
-        Utils.utils.clickElement(driver, PageLocators.LandingPage.btnlogin());
-        Utils.utils.clickElement(driver, LoginOptions.btnSignUp());
-
-        int size = driver.findElements(By.className("android.widget.EditText")).size();
-        System.out.println(size);
-        List<WebElement> textFields = driver.findElements(By.className("android.widget.EditText"));
-        textFields.get(0).sendKeys("appium");
-        textFields.get(1).sendKeys("Mobile");
-        textFields.get(2).sendKeys("appium@training.com");
-        textFields.get(3).sendKeys("password");
-
-        Utils.utils.clickElement(driver, PageLocators.SignUpPage.btnConfirm());
-    }
-
     //test for using items that dont have unique IDs
     @Test
     public void apiTest() {
@@ -96,6 +53,31 @@ public class appiumTests {
             System.out.println(links.get(i).getText());
         }
         System.out.println(links.get(8).getText());
+    }
+
+    @Test
+    public void apiTestGestures() {
+        String text = "App";
+        Utils.utils.scrollAndClick(driver, text);
+
+        MobileElement gesture = (MobileElement) driver.findElement(By.className("android.widget.TextView")); //cast to appium function
+        gesture.swipe(SwipeElementDirection.UP, 1000);
+        gesture.tap(1,100);
+        gesture.zoom();
+    }
+
+    @Test
+    public void apiTestTouchActions() {
+        List<WebElement> links = Utils.utils.listOfElements(driver, PageLocators.ApiPageLinks.APILinks());
+        links.get(2);
+
+        TouchAction touchAction = new TouchAction(driver);
+        touchAction.tap(links.get(2));
+
+        //capabilities functions
+        System.out.println(driver.isLocked());
+        System.out.println(driver.getContext());
+        driver.closeApp();
     }
 
 
