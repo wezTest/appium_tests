@@ -1,6 +1,6 @@
 package Utils;
 
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.MobileDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,8 +29,8 @@ public class utils {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    public static void scrollAndClick(AndroidDriver driver, String text) {
-        driver.scrollTo(text).click();
+    public static void scrollAndClick(WebDriver driver, String text) {
+        ((MobileDriver)driver).scrollTo(text).click();
     }
 
     public static void waitForClickabilityOf(WebDriver driver, By locator) {

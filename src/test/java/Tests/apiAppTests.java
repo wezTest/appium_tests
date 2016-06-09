@@ -1,12 +1,12 @@
 package Tests;
 
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.SwipeElementDirection;
+import io.appium.java_client.MobileDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
-import org.openqa.selenium.By;
+
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeTest;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class apiAppTests {
 
-    static AndroidDriver driver;
+    AndroidDriver driver;
     DesiredCapabilities cap;
 
     @BeforeTest
@@ -40,30 +40,49 @@ public class apiAppTests {
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), cap);
         driver.unlockDevice();
+
+        //System.out.println(driver.isLocked());
+        //System.out.println(driver.getContext());
+        //driver.closeApp();
     }
 
     //test for using items that dont have unique IDs
     @Test
     public void apiTest() {
         String text = "Preference";
+        String findValue = "4. Default values";
+
         Utils.utils.scrollAndClick(driver, text);
         List<WebElement> links = Utils.utils.listOfElements(driver, PageLocators.ApiPageLinks.APILinks());
 
         for (int i = 0; i < links.size(); i++) {
             System.out.println(links.get(i).getText());
+            if (links.get(i).getText().contains(findValue));
+            {
+                System.out.println("FOUND IT!");
+                break;
+            }
         }
-        System.out.println(links.get(8).getText());
     }
 
     @Test
     public void apiTestGestures() {
         String text = "App";
-        Utils.utils.scrollAndClick(driver, text);
+       Utils.utils.scrollAndClick(driver, text);
 
-        MobileElement gesture = (MobileElement) driver.findElement(By.className("android.widget.TextView")); //cast to appium function
-        gesture.swipe(SwipeElementDirection.UP, 1000);
-        gesture.tap(1,100);
-        gesture.zoom();
+        // MobileElement gesture = (MobileElement) driver.findElement(By.className("android.widget.TextView")); //cast to appium function
+        // gesture.swipe(SwipeElementDirection.UP, 1000); //swipe commands
+        //gesture.zoom(); //pinch zoom
+
+        Dimension d = driver.manage().window().getSize();
+
+
+        ((MobileDriver)driver).swipe(d.getWidth() /2, d.getHeight() /2, d.getWidth() /2,(d.getHeight() /2) -400,0);
+        ((MobileDriver)driver).swipe(d.getWidth() /2 ,d.getHeight() /2 ,d.getWidth() /2,(d.getHeight() /2) -400,0);
+
+      /*  int yAxis = 50;
+        Utils.gestureUtils.swipeYAxis(driver, yAxis);*/
+        System.out.println("done");
     }
 
     @Test
@@ -71,13 +90,12 @@ public class apiAppTests {
         List<WebElement> links = Utils.utils.listOfElements(driver, PageLocators.ApiPageLinks.APILinks());
         links.get(2);
 
+        //create driver for gestures
         TouchAction touchAction = new TouchAction(driver);
-        touchAction.tap(links.get(2));
 
-        //capabilities functions
-        System.out.println(driver.isLocked());
-        System.out.println(driver.getContext());
-        driver.closeApp();
+        //always use .perform() after commands.
+        touchAction.tap(links.get(2)).perform(); //tap an item
+        touchAction.longPress(links.get(2)).perform(); //long press
     }
 
 
