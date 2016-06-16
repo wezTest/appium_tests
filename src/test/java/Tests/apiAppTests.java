@@ -1,12 +1,10 @@
 package Tests;
 
-import io.appium.java_client.MobileDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
 
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeTest;
@@ -68,21 +66,15 @@ public class apiAppTests {
     @Test
     public void apiTestGestures() {
         String text = "App";
-       Utils.utils.scrollAndClick(driver, text);
+        Utils.utils.scrollAndClick(driver, text);
 
         // MobileElement gesture = (MobileElement) driver.findElement(By.className("android.widget.TextView")); //cast to appium function
         // gesture.swipe(SwipeElementDirection.UP, 1000); //swipe commands
         //gesture.zoom(); //pinch zoom
 
-        Dimension d = driver.manage().window().getSize();
-
-
-        ((MobileDriver)driver).swipe(d.getWidth() /2, d.getHeight() /2, d.getWidth() /2,(d.getHeight() /2) -400,0);
-        ((MobileDriver)driver).swipe(d.getWidth() /2 ,d.getHeight() /2 ,d.getWidth() /2,(d.getHeight() /2) -400,0);
-
-      /*  int yAxis = 50;
-        Utils.gestureUtils.swipeYAxis(driver, yAxis);*/
-        System.out.println("done");
+        //use the utilsGesture
+        int yAxis = 50;
+        Utils.gestureUtils.swipeYAxis(driver, yAxis);
     }
 
     @Test
