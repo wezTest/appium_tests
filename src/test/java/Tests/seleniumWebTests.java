@@ -1,11 +1,12 @@
 package Tests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -45,6 +46,16 @@ public class seleniumWebTests {
     }
 
     @Test
+    public void selectFromDropDown(){
+//        Select dropdown = new Select(driver.findElement(By.id("Carlist")));//doesnt exist
+//        dropdown.selectByVisibleText("Audi");
+
+        Select listbox = new Select(driver.findElement(By.xpath("//select[@name='FromLB']")));
+        listbox.selectByValue("Italy");
+        listbox.selectByIndex(1);
+    }
+
+    @Test
     public void sendKeysToTextField(){
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);//implicit wait
         driver.findElement(By.name("fname")).sendKeys("Hello");
@@ -57,6 +68,19 @@ public class seleniumWebTests {
         //Utils.utils.waitForVisibilityOf(driver, By Locator);
     }
 
+    @Test
+    public void browserDetails(){
+        System.out.println(driver.getTitle());
+        System.out.println(driver.getCurrentUrl());
+    }
+
+    @Test
+    public void executeScript(){
+        JavascriptExecutor javascript = (JavascriptExecutor) driver;
+        String url = (String)javascript.executeScript(("return document.domain"));
+        System.out.println(url);
+        javascript.executeScript("alert('Test Case is starting');");
+    }
 
 
 }
