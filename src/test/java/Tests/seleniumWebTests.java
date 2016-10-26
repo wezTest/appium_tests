@@ -36,7 +36,7 @@ public class seleniumWebTests {
     @Test
     public void clickElement(){
         driver.findElement(By.id("submitButton")).click();
-        //Utils.utils.clickElement(driver, By locator);
+        //Utils.Utils.clickElement(driver, By locator);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class seleniumWebTests {
     public void waitForElement() {
         WebDriverWait wait = new WebDriverWait(driver, 15);
         wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//div[@id='timeLeft']"), "Time left: 7 seconds"));
-        //Utils.utils.waitForVisibilityOf(driver, By Locator);
+        //Utils.Utils.waitForVisibilityOf(driver, By Locator);
     }
 
     @Test
