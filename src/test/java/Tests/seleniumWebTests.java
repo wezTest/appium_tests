@@ -1,5 +1,6 @@
 package Tests;
 
+import PageLocators.WebPageLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -36,7 +37,7 @@ public class seleniumWebTests {
     @Test
     public void clickElement(){
         driver.findElement(By.id("submitButton")).click();
-        //Utils.Utils.clickElement(driver, By locator);
+        Utils.utils.clickElement(driver, WebPageLocators.btnSubmit());
     }
 
     @Test
